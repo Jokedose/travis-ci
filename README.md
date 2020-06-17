@@ -1,59 +1,59 @@
-#codito-jan2017
+# codito-jan2017
 
-PresentationrepositoryatCoditoErgoSumhostedbyTheFamilyinParis,Jan19th2017.Edit
+Presentation repository at Codito Ergo Sum hosted by TheFamily in Paris, Jan 19th 2017. Edit
 
-###Demo
+### Demo
 
--CreateaK8Scluster
--Gettheclustercredentials
--CreateaPrivateGitHubrepocontainingyourapplicationcode,etc.
--CreateandaddtheDockerfile
--BuildandtesttheDockerimage
--PushtheDockerimageinGCR:`gclouddocker--pushasia.gcr.io/travis-ci-280602/jokedose-travisci:pre`
--CreatetheK8Sdeploymentandallowexternaltraffictotheapplication
+- Create a K8S cluster
+- Get the cluster credentials
+- Create a Private GitHub repo containing your application code, etc.
+- Create and add the Dockerfile
+- Build and test the Docker image
+- Push the Docker image in GCR: `gcloud docker -- push asia.gcr.io/travis-ci-280602/jokedose-travisci:pre`
+- Create the K8S deployment and allow external traffic to the application
 
-(Atthispointyouhavetheapplication/containerrunninginthecluster!!!)
+(At this point you have the application/container running in the cluster!!!)
 
--EnablethecreatedrepoonTravis
--Createandaddthe.travis.ymlanddeploy.shfile
--Run`chmod+xresources/deploy.sh`togiveexecutionpermissiontothedeploy.shfile
--CreateanddownloadagcloudkeyinJSONformat
--Run`catgcloud.json|base64`andcopytheoutput
--Createasecret`GCLOUD_SERVICE_KEY`variableintheTravisreposettings
--Committheeverything
+- Enable the created repo on Travis
+- Create and add the .travis.yml and deploy.sh file
+- Run `chmod +x resources/deploy.sh` to give execution permission to the deploy.sh file
+- Create and download a gcloud key in JSON format
+- Run `cat gcloud.json | base64` and copy the output
+- Create a secret `GCLOUD_SERVICE_KEY` variable in the Travis repo settings
+- Commit the everything
 
-###Buildandtestthecontainer
-
-```
-dockerbuild-tasia.gcr.io/travis-ci-280602/jokedose-travisci:pre.
-dockerrun-d-p8080:8080--namejokedose-travisciasia.gcr.io/travis-ci-280602/jokedose-travisci:pre
-```
-
-###Getclustercredentials
+### Build and test the container
 
 ```
-gcloud--quietconfigsetprojecttravis-ci-280602
-gcloud--quietconfigsetcontainer/clustercluster-jokedose-travisci
-gcloud--quietconfigsetcompute/zoneasia-southeast1-a
-gcloud--quietcontainerclustersget-credentialscluster-jokedose-travisci
+docker build -t asia.gcr.io/travis-ci-280602/jokedose-travisci:pre .
+docker run -d -p 8080:8080 --name jokedose-travisci asia.gcr.io/travis-ci-280602/jokedose-travisci:pre
 ```
 
-###Createthedeployment
+### Get cluster credentials
 
 ```
-kubectlcreatedeploymentjokedose-travisci--image=asia.gcr.io/travis-ci-280602/jokedose-travisci:pre
-kubectlexposedeploymentjokedose-travisci--type="LoadBalancer"--port=8080
+gcloud --quiet config set project travis-ci-280602
+gcloud --quiet config set container/cluster cluster-jokedose-travisci
+gcloud --quiet config set compute/zone asia-southeast1-a
+gcloud --quiet container clusters get-credentials cluster-jokedose-travisci
 ```
 
-###Connecttothecluster
+### Create the deployment
 
 ```
-gcloudcontainerclustersget-credentialscluster-jokedose-travisci--zoneasia-southeast1-a--projecttravis-ci-280602
-kubectlproxy
+kubectl create deployment jokedose-travisci --image=asia.gcr.io/travis-ci-280602/jokedose-travisci:pre
+kubectl expose deployment jokedose-travisci --type="LoadBalancer" --port=8080
 ```
 
-###Scaleuptheapplication(optional)
+### Connect to the cluster
 
 ```
-kubectlscaledeploymentjokedose-travisci--replicas=3
+gcloud container clusters get-credentials cluster-jokedose-travisci --zone asia-southeast1-a --project travis-ci-280602
+kubectl proxy
+```
+
+### Scale up the application (optional)
+
+```
+kubectl scale deployment jokedose-travisci --replicas=3
 ```
