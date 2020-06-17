@@ -35,6 +35,7 @@ env:
 before_install:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
   - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud iam service-accounts keys create --iam-account 483190874546-compute@developer.gserviceaccount.com gcloud-service-key.json
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update beta
