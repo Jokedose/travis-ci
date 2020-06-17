@@ -20,4 +20,4 @@ yes | gcloud beta container images add-tag asia.gcr.io/${PROJECT_NAME}/jokedose-
 kubectl config view
 kubectl config current-context
 
-kubectl set image deployment/jokedose-travisci jokedose-travisci=asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:$TRAVIS_COMMIT
+kubectl set image deployment/jokedose-travisci jokedose-travisci=asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:$TRAVIS_COMMIT --record
