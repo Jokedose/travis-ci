@@ -1,10 +1,10 @@
-# # Use Dockerized infrastructure
-# sudo: false
+# Use Dockerized infrastructure
+sudo: false
 
-# # Use node_js environnement
-# language: node_js
-# node_js:
-#   - "7"
+# Use node_js environnement
+language: node_js
+node_js:
+  - "7"
 
 # Cache Gcloud SDK between commands
 cache:
