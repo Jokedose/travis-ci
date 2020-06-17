@@ -55,5 +55,5 @@ kubectl proxy
 ### Scale up the application (optional)
 
 ```
-kubectl scale deployment codito-jan2017 --replicas=3
+kubectl scale deployment jokedose-travisci --replicas=3
 ```
