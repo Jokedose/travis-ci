@@ -1,6 +1,4 @@
-# codito-jan2017
-
-Presentation repository at Codito Ergo Sum hosted by TheFamily in Paris, Jan 19th 2017. Edit
+# Jokedose-travisci
 
 ### Demo
 
