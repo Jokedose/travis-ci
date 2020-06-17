@@ -24,7 +24,7 @@ addons:
 # Set env vars
 env:
   global:
-    - GOOGLE_APPLICATION_CREDENTIALS=~/travis-ci-280602-225bf98f45dc.json
+    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
     - PROJECT_NAME=travis-ci-280602
     - PROJECT_IMAGES=jokedose-travisci
     - CLUSTER_NAME=cluster-jokedose-travisci
