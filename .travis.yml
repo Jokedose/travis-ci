@@ -34,8 +34,7 @@ env:
 
 before_install:
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
-  - source $HOME/google-cloud-sdk/path.bash.inc
-  - if [ -a gcloud-service-key.json ]; then gcloud -q auth activate-service-account --key-file gcloud-service-key.json; fi
+  - source /home/travis/google-cloud-sdk/path.bash.inc
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update beta
