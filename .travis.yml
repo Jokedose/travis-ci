@@ -50,7 +50,7 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: chmod +x ./resources/deploy.sh
+    script: ./resources/deploy.sh
     skip_cleanup: true
     on:
       branch: master

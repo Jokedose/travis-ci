@@ -41,7 +41,7 @@ gcloud --quiet container clusters get-credentials cluster-jokedose-travisci
 ### Create the deployment
 
 ```
-kubectl create deploy/jokedose-travisci --image=asia.gcr.io/travis-ci-280602/jokedose-travisci:pre
+kubectl create deployment jokedose-travisci --image=asia.gcr.io/travis-ci-280602/jokedose-travisci:pre
 kubectl expose deployment jokedose-travisci --type="LoadBalancer" --port=8080
 ```
 
