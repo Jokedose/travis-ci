@@ -48,6 +48,7 @@ script:
 
 before_deploy:
   - gcloud --quiet components update kubectl
+  - echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i > $HOME/google-cloud-sdk/gcloud-service-key.json
 
 deploy:
   - provider: script
