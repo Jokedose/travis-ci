@@ -5,8 +5,8 @@ set -e
 docker build -t asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:$TRAVIS_COMMIT .
 docker tag asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:$TRAVIS_COMMIT asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:latest
 
-echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${HOME}/gcloud-service-key.json
-gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ${HOME}/travis-ci-280602-225bf98f45dc.json
+gcloud auth activate-service-account --key-file ${HOME}/travis-ci-280602-225bf98f45dc.json
 
 gcloud --quiet config set project $PROJECT_NAME
 gcloud --quiet config set container/cluster $CLUSTER_NAME
