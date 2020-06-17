@@ -5,9 +5,8 @@ set -e
 docker build -t asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:$TRAVIS_COMMIT .
 docker tag asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:$TRAVIS_COMMIT asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:latest
 
-echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i
-echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i > /home/travis/gcloud-service-key.json
-gcloud auth activate-service-account --key-file /home/travis/gcloud-service-key.json
+echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i > $HOME/google-cloud-sdk/gcloud-service-key.json
+gcloud auth activate-service-account --key-file $HOME/google-cloud-sdk/gcloud-service-key.json
 
 gcloud --quiet config set project ${PROJECT_NAME}
 gcloud --quiet config set container/cluster ${CLUSTER_NAME}
