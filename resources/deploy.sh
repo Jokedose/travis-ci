@@ -6,6 +6,8 @@ docker build -t asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:$TRAVIS_COMMIT .
 docker tag asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:$TRAVIS_COMMIT asia.gcr.io/${PROJECT_NAME}/${PROJECT_IMAGES}:latest
 
 echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i > $HOME/google-cloud-sdk/gcloud-service-key.json
+
+
 gcloud auth activate-service-account --key-file $HOME/google-cloud-sdk/gcloud-service-key.json
 
 gcloud --quiet config set project ${PROJECT_NAME}
