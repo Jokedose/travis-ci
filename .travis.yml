@@ -1,63 +1,63 @@
-# Use Dockerized infrastructure
-sudo: false
+#UseDockerizedinfrastructure
+sudo:false
 
-# Use node_js environnement
-language: node_js
+#Usenode_jsenvironnement
+language:node_js
 node_js:
-  - "7"
+-"7"
 
-# Cache Gcloud SDK between commands
+#CacheGcloudSDKbetweencommands
 cache:
-  directories:
-    - "$HOME/google-cloud-sdk/"
+directories:
+-"$HOME/google-cloud-sdk/"
 
-# Install services
+#Installservices
 services:
-  - docker
+-docker
 
-# Install addons
+#Installaddons
 addons:
-  apt:
-    packages:
-    - default-jre
+apt:
+packages:
+-default-jre
 
-# Set env vars
+#Setenvvars
 env:
-  global:
-    - GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
-    - PROJECT_NAME=travis-ci-280602
-    - PROJECT_IMAGES=jokedose-travisci
-    - CLUSTER_NAME=cluster-jokedose-travisci
-    - CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a
-    - CLOUDSDK_CORE_DISABLE_PROMPTS=1 
-    - NODE_ENV=CI
+global:
+-GOOGLE_APPLICATION_CREDENTIALS=~/gcloud-service-key.json
+-PROJECT_NAME=travis-ci-280602
+-PROJECT_IMAGES=jokedose-travisci
+-CLUSTER_NAME=cluster-jokedose-travisci
+-CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a
+-CLOUDSDK_CORE_DISABLE_PROMPTS=1
+-NODE_ENV=CI
 
 before_install:
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
-  - source $HOME/google-cloud-sdk/path.bash.inc
-  - ls -l ${HOME}/google-cloud-sdk/
-  - gcloud --quiet version
-  - gcloud --quiet components update
-  - gcloud --quiet components update beta
+-if[!-d"$HOME/google-cloud-sdk/bin"];thenrm-rf"$HOME/google-cloud-sdk";curlhttps://sdk.cloud.google.com|bash>/dev/null;fi
+-source$HOME/google-cloud-sdk/path.bash.inc
+-ls-l${HOME}/google-cloud-sdk/
+-gcloud--quietversion
+-gcloud--quietcomponentsupdate
+-gcloud--quietcomponentsupdatebeta
 
 install:
-  - npm install
+-npminstall
 
 script:
-  - echo "skip tests"
+-echo"skiptests"
 
 before_deploy:
-  - gcloud --quiet components update kubectl
-  - echo ${GCLOUD_SERVICE_KEY_TEST}
-  - echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i
-  - echo ${GCLOUD_SERVICE_KEY_TEST} | base64 --decode -i > $HOME/google-cloud-sdk/gcloud-service-key.json
+-gcloud--quietcomponentsupdatekubectl
+-echo${GCLOUD_SERVICE_KEY_TEST}
+-echo${GCLOUD_SERVICE_KEY_TEST}|base64--decode-i
+-echo${GCLOUD_SERVICE_KEY_TEST}|base64--decode-i>$HOME/google-cloud-sdk/gcloud-service-key.json
 
 deploy:
-  - provider: script
-    script: ./resources/deploy.sh
-    skip_cleanup: true
-    on:
-      branch: master
+-provider:script
+script:./resources/deploy.sh
+skip_cleanup:true
+on:
+branch:master
 
 #notifications:
-#  slack: <key>
+#slack:<key>

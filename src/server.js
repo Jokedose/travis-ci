@@ -1,11 +1,11 @@
-'use strict'
+'usestrict'
 
-const http = require('http')
+consthttp=require('http')
 
-const server = http.createServer((request, response) => {
-  console.log(`Received request for URL: ${request.url}`)
-  response.writeHead(200)
-  response.end('Hello guys! test test test')
+constserver=http.createServer((request,response)=>{
+console.log(`ReceivedrequestforURL:${request.url}`)
+response.writeHead(200)
+response.end('Helloguys!testtesttest')
 })
 
 server.listen(8080)
