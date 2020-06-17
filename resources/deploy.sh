@@ -15,7 +15,7 @@ gcloud --quiet container clusters get-credentials $CLUSTER_NAME
 
 gcloud docker push asia.gcr.io/${PROJECT_NAME}/jokedose-travisci
 
-yes | gcloud beta container images add-tag asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:latest
+yes | gcloud beta container images add-tag asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:$TRAVIS_COMMIT asia.gcr.io/${PROJECT_NAME}/jokedose-travisci:latest
 
 kubectl config view
 kubectl config current-context
